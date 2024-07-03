@@ -1,0 +1,26 @@
+.form__wrapper {
+  background-color: white;
+  border-radius: 8px;
+  width: 500px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__inp {
+  font-style: italic;
+  flex: 0.9;
+  padding: 10px;
+  border-radius: 5px;
+  color: rgb(12, 195, 240);
+  border: 1px solid rgb(12, 195, 240);
+  outline: none;
+}
+
+.form__btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(12, 195, 240);
+  background-color: transparent;
+}
