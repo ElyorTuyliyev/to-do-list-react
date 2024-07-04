@@ -6,11 +6,8 @@ function TodoList() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const { text } = e.target;
-
     setToDo([...toDo, text.value]);
-
     e.target.reset();
   };
 
