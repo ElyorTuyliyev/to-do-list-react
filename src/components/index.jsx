@@ -1,10 +1,11 @@
+import List from "./List";
 import "./style.css";
 import { useState } from "react";
 
 const colors = [
   {
     color: "red",
-    value: 3,
+    value: 1,
   },
   {
     color: "yellow",
@@ -12,27 +13,41 @@ const colors = [
   },
   {
     color: "green",
-    value: 1,
+    value: 3,
   },
 ];
 
 function TodoList() {
   const [toDo, setToDo] = useState([]);
-  const [time, setTime] = useState("start");
   const [selectedColor, setSelectedColor] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const newDate = new Date();
+    const year = newDate.getFullYear();
+    const day = newDate.getDate();
+    const month = newDate.getMonth();
+    const formattedMonth = month < 10 ? `0${month + 1}` : month + 1;
+    const hour = newDate.getHours();
+    const minutes = newDate.getMinutes();
+
     const { text } = e.target;
-    setToDo([
-      ...toDo,
-      {
-        id: Math.random().toString().slice(2),
-        text: text.value,
-        priority: selectedColor,
-      },
-    ]);
-    e.target.reset();
+
+    if (text.value && selectedColor) {
+      setToDo([
+        ...toDo,
+        {
+          id: Math.random().toString().slice(2),
+          text: text.value,
+          priority: selectedColor,
+          time: `${hour}:${minutes} , ${day}.${formattedMonth}.${year} `,
+        },
+      ]);
+      e.target.reset();
+    } else {
+      alert("Please fill the fields first");
+    }
   };
 
   const handleDelete = (id) => {
@@ -48,11 +63,9 @@ function TodoList() {
     setSelectedColor(item.value);
   };
 
-  const handleBtn = () => {
-    setTime("stop");
+  const getPriorityColor = (priority) => {
+    return colors.filter((item) => item.value == priority)[0].color;
   };
-
-  console.log(toDo);
 
   return (
     <div className="wrapper">
@@ -80,36 +93,17 @@ function TodoList() {
         <button className="form__btn">add</button>
       </form>
       <ul className="list">
+        {console.log(toDo)}
         {toDo
-          .sort(({ priority: a }, { priority: b }) => b - a)
+          .sort(({ priority: a }, { priority: b }) => a - b)
           .map((item, index) => (
-            <li className="item" key={`item-${index}`}>
-              <p className="item__text">{item.text}</p>
-              <div className="icon__wrapper">
-                <p
-                  style={{
-                    border: "1px solid black",
-                    padding: "5px 15px",
-                    borderRadius: 5,
-                    borderColor: "#7c7c7c",
-                  }}
-                >
-                  {item.priority}
-                </p>
-                <button onClick={handleBtn} className="form__btn">
-                  {time}
-                </button>
-
-                <i
-                  onClick={() => handleEdit(item.id)}
-                  className="fa-solid fa-pen"
-                ></i>
-                <i
-                  onClick={() => handleDelete(item.id)}
-                  className="fa-solid fa-trash"
-                ></i>
-              </div>
-            </li>
+            <List
+              key={index}
+              item={item}
+              getPriorityColor={getPriorityColor}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           ))}
       </ul>
     </div>
