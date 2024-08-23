@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const List = ({
-  item,
-  getPriorityColor,
-  handleBtn,
-  handleDelete,
-  handleEdit,
-}) => {
-  const [time, setTime] = useState(0);
-
+const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
   const [isTaskStarted, setIsTaskStarted] = useState(false);
 
-  useEffect(() => {
-    if (isTaskStarted === true) {
-      setInterval(() => {
-        setTime((prev) => prev + 1);
-      }, 1000);
-    }
-  }, []);
-
   const handleStarted = () => {
-    setIsTaskStarted(!isTaskStarted);
+    if (isTaskStarted) {
+      handleDelete(item.id);
+    } else {
+      setIsTaskStarted(!isTaskStarted);
+    }
   };
 
   return (
@@ -34,8 +22,6 @@ const List = ({
             backgroundColor: getPriorityColor(item.priority),
           }}
         ></div>
-
-        <p>{time}</p>
 
         <button onClick={handleStarted} className="form__btn">
           {isTaskStarted ? "complete" : "start"}
