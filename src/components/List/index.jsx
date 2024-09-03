@@ -38,7 +38,7 @@ const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
             right: 10,
             top: 40,
             fontSize: "14px",
-            fontWeight: 500,
+            fontWeight: 400,
           }}
         >
           Created at: {item.time}
