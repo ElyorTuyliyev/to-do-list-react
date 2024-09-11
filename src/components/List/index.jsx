@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
   const [isTaskStarted, setIsTaskStarted] = useState(false);
@@ -41,7 +41,7 @@ const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
             fontWeight: 400,
           }}
         >
-          Created at: {item.time}
+          Created at time: {item.time}
         </p>
       </div>
     </li>
