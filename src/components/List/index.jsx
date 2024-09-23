@@ -32,6 +32,7 @@ const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
           onClick={() => handleDelete(item.id)}
           className="fa-solid fa-trash"
         ></i>
+        <Link></Link>
         <p
           style={{
             position: "absolute",
@@ -39,6 +40,7 @@ const List = ({ item, getPriorityColor, handleDelete, handleEdit }) => {
             top: 40,
             fontSize: "14px",
             fontWeight: 400,
+            color: "black",
           }}
         >
           Created at time: {item.time}
